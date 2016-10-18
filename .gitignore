@@ -10,3 +10,6 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+fsm-lab/.metadata/.lock
+fsm-lab/.metadata/.plugins/org.eclipse.jdt.core/3045053200.index
+fsm-lab/.metadata/.plugins/org.eclipse.jdt.core/2937492377.index
