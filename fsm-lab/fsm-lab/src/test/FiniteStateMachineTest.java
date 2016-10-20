@@ -10,6 +10,13 @@ public class FiniteStateMachineTest {
 	@Test
 	public void fsmConstructTest() {
 		FiniteStateMachine fsm = new FiniteStateMachine();
+		assertNotNull(fsm);
+	}
+	
+	@Test
+	public void fsmTickTest() {
+		FiniteStateMachine fsm = new FiniteStateMachine();
+		assertTrue(fsm.tick());
 	}
 
 }
