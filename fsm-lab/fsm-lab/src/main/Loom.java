@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jamie Stevenson
@@ -16,6 +18,7 @@ public class Loom {
 	
 	private int width;
 	private int depth;
+	private List<FiniteStateMachine> machines;
 	
 	public Loom () {
 		this(MIN_DIMENSION,MIN_DIMENSION);
@@ -32,11 +35,28 @@ public class Loom {
 	public Loom (int width, int depth) {
 		this.width = validDimension(width);
 		this.depth = validDimension(depth);
+		machines = new ArrayList<>();
 	}
 
+	
+	/**
+	 * Gets the dimensions of the Loom, note that this is an indication of capacity, not the number
+	 * FSMs present in the Loom. 
+	 * @return Dimension indicating the size of this Loom
+	 */
 	public Dimension dimension () {
 		return new Dimension(width, depth);
 	}
+	
+	
+	public boolean put(FiniteStateMachine fsm) {
+		if(fsm == null || machines.size() == (width*depth)){
+			return false;
+		} else {
+			return machines.add(fsm);
+		}
+	}
+	
 	
 	private int validDimension(int d) {
 		return d < MIN_DIMENSION ? MIN_DIMENSION : d;
