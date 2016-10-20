@@ -1,0 +1,26 @@
+Task outline:
+Loom FSM management:
+- Add
+- Add fsm to top-left ish
+- Remove:
+- Remove with coordinates
+
+Self Same FSM simulations:
+- Flasher (blind)
+- Game of Life (reacts to neighbours)
+-- What to do with neighbours
+--- Specify or wrap world?
+
+Different FSM simulations:
+- Fire (generates self)
+- Growing plants
+
+Agents:
+- Predator and prey
+
+Agents and FSMs
+- Plant and herbivores
+
+Environment:
+- Wind
+- Sunlight
