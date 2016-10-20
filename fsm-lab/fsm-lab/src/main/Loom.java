@@ -49,6 +49,14 @@ public class Loom {
 	}
 	
 	
+	/**
+	 * Add a FSM to this collection
+	 * @param fsm - a FSM
+	 * @return - true if added, otherwise false
+	 * 
+	 * NB - the FSM will be added on a best effort basis, near the origin (0,0) (top left), if
+	 * there is no room, or the input is null, the input will not be added to this collection.
+	 */
 	public boolean put(FiniteStateMachine fsm) {
 		if(fsm == null || machines.size() == (width*depth)){
 			return false;
