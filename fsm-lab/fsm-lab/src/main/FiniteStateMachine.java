@@ -8,11 +8,11 @@ package main;
  */
 
 public class FiniteStateMachine {
-	private String state;
+	private boolean state;
 
 	// Default Constructor
 	public FiniteStateMachine () {
-		state = "flip";
+		state = false;
 	}
 	
 	/**
@@ -21,17 +21,13 @@ public class FiniteStateMachine {
 	 * 				otherwise false
 	 */
 	public boolean tick () {
-		if (state.equals("flip")) {
-			state = "flop";
-		} else {
-			state = "flip";
-		}
+		state = !state;
 		return true;
 	}
 	
 	
 	public String state () {
-		return state;
+		return state ? "ON" : "OFF";
 	}
 	
 }

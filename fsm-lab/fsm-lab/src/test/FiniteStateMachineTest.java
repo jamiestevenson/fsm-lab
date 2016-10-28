@@ -22,15 +22,15 @@ public class FiniteStateMachineTest {
 	@Test
 	public void fsmGetState () {
 		FiniteStateMachine fsm = new FiniteStateMachine();
-		assertEquals(fsm.state(), "flip");
+		assertEquals(fsm.state(), "OFF");
 	}
 	
 	@Test
 	public void fsmGetNextState () {
 		FiniteStateMachine fsm = new FiniteStateMachine();
-		assertEquals(fsm.state(), "flip");
+		assertEquals(fsm.state(), "OFF");
 		fsm.tick();
-		assertEquals(fsm.state(), "flop");
+		assertEquals(fsm.state(), "ON");
 	}
 
 }
