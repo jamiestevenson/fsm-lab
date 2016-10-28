@@ -57,7 +57,7 @@ public class Loom {
 	 * NB - the FSM will be added on a best effort basis, near the origin (0,0) (top left), if
 	 * there is no room, or the input is null, the input will not be added to this collection.
 	 */
-	public boolean put(FiniteStateMachine fsm) {
+	public boolean add(FiniteStateMachine fsm) {
 		if(fsm == null || machines.size() == (width*depth)){
 			return false;
 		} else {
@@ -66,8 +66,22 @@ public class Loom {
 	}
 	
 	
+	
+	public FiniteStateMachine getCellContents(int i, int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	/**
+	 * Returns a valid Dimension that can be the size of this Loom
+	 * @param d - candidate dimension
+	 * @return Dimension that is based in the input Dimension d, adjusted to meet minimum
+	 * size for this Loom object.
+	 */
 	private int validDimension(int d) {
 		return d < MIN_DIMENSION ? MIN_DIMENSION : d;
 	}
+
 	
 }

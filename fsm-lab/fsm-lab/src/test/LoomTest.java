@@ -12,19 +12,19 @@ import org.junit.Test;
 public class LoomTest {
 
 	@Test
-	public void defaultConstructTest () {
+	public void defaultConstruct_LoomTest () {
 		Loom lm = new Loom();
 		assertNotNull(lm);
 	}
 	
 	@Test
-	public void specificConstruct1x1Test () {
+	public void specificConstruct1x1_LoomTest () {
 		Loom lm = new Loom(1,1);
 		assertNotNull(lm);
 	}
 	
 	@Test 
-	public void defaultDimensionTest () {
+	public void defaultDimension_LoomTest () {
 		Loom lm = new Loom();
 		Dimension d = lm.dimension();
 		assertNotNull(d);
@@ -33,7 +33,7 @@ public class LoomTest {
 	}
 	
 	@Test 
-	public void specifiedDimensionTest () {
+	public void specifiedDimension_LoomTest () {
 		Loom lm = new Loom(3,3);
 		Dimension d = lm.dimension();
 		assertNotNull(d);
@@ -42,7 +42,7 @@ public class LoomTest {
 	}
 	
 	@Test 
-	public void invalidDimensionTest () {
+	public void invalidDimension_LoomTest () {
 		Loom lm = new Loom(0,0);
 		Dimension d = lm.dimension();
 		assertNotNull(d);
@@ -51,35 +51,45 @@ public class LoomTest {
 	}
 	
 	@Test
-	public void addNullFsmTest () {
+	public void addNullFsm_LoomTest () {
 		Loom lm = new Loom();
 		FiniteStateMachine fsm = null;
-		assertFalse(lm.put(fsm));
+		assertFalse(lm.add(fsm));
 	}
 	
 	@Test
-	public void addActualFsmTest () {
+	public void addActualFsm_LoomTest () {
 		Loom lm = new Loom();
 		FiniteStateMachine fsm = new FiniteStateMachine();
-		assertTrue(lm.put(fsm));
+		assertTrue(lm.add(fsm));
 	}
 	
 	@Test
-	public void addActualFsmToFullLoomTest () {
+	public void addActualFsmToFull_LoomTest () {
 		Loom lm = new Loom(1,1);
 		FiniteStateMachine fsmA = new FiniteStateMachine();
 		FiniteStateMachine fsmB = new FiniteStateMachine();
-		lm.put(fsmA);
-		assertFalse(lm.put(fsmB));
+		lm.add(fsmA);
+		assertFalse(lm.add(fsmB));
 	}
 	
 	@Test
-	public void addFsmAndNullsDontMatterLoomTest () {
+	public void addFsmAndNullsDontMatter_LoomTest () {
 		Loom lm = new Loom(1,1);
 		FiniteStateMachine fsmA = null;
 		FiniteStateMachine fsmB = new FiniteStateMachine();
-		lm.put(fsmA);
-		assertTrue(lm.put(fsmB));
+		lm.add(fsmA);
+		assertTrue(lm.add(fsmB));
+	}
+	
+	@Test
+	public void oneFsm_inTopLeft_LoomTest () {
+		Loom lm = new Loom(10,10);
+		FiniteStateMachine fsmA = new FiniteStateMachine();
+		lm.add(fsmA);
+		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
+		assertTrue(fsmA == fsmReturned);
+		
 	}
 	
 }
