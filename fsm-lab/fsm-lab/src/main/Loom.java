@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,9 @@ public class Loom {
 	
 	private int width;
 	private int depth;
-	private List<FiniteStateMachine> machines;
+	private int fsmCount;
+	// Addressed [depth][width]
+	private FiniteStateMachine[][] machines;
 	
 	public Loom () {
 		this(MIN_DIMENSION,MIN_DIMENSION);
@@ -35,7 +38,8 @@ public class Loom {
 	public Loom (int width, int depth) {
 		this.width = validDimension(width);
 		this.depth = validDimension(depth);
-		machines = new ArrayList<>();
+		this.fsmCount = 0;
+		machines = new FiniteStateMachine[depth][width];
 	}
 
 	
@@ -57,19 +61,38 @@ public class Loom {
 	 * NB - the FSM will be added on a best effort basis, near the origin (0,0) (top left), if
 	 * there is no room, or the input is null, the input will not be added to this collection.
 	 */
-	public boolean add(FiniteStateMachine fsm) {
-		if(fsm == null || machines.size() == (width*depth)){
+	public boolean add (FiniteStateMachine fsm) {
+		if(fsm == null || isFull()){
 			return false;
-		} else {
-			return machines.add(fsm);
 		}
+		return addToFirstAvailableCell(fsm);
+	}
+	
+
+	/**
+	 * Puts a FSM in a specific location in the Loom 
+	 * @param fsm - a FiniteStateMachine to add
+	 * @param x - the column to add the FSM
+	 * @param y - the row to add the FSM
+	 * @return - true if the FSM is added, otherwise false
+	 */
+	public boolean put (FiniteStateMachine fsm, int x, int y) {
+		machines[y][x] = fsm;
+		fsmCount++;
+		return true;
 	}
 	
 	
-	
-	public FiniteStateMachine getCellContents(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Get the FSM at the specified coordinates
+	 * @param x - the column 
+	 * @param y - the row
+	 * @return - the FSM at the location (x,y) or null if the location is empty
+	 * 
+	 * NB - some FSM configurations may use some form of null object
+	 */
+	public FiniteStateMachine getCellContents (int x, int y) {
+		return machines[y][x];
 	}
 	
 	
@@ -79,8 +102,35 @@ public class Loom {
 	 * @return Dimension that is based in the input Dimension d, adjusted to meet minimum
 	 * size for this Loom object.
 	 */
-	private int validDimension(int d) {
+	private int validDimension (int d) {
 		return d < MIN_DIMENSION ? MIN_DIMENSION : d;
+	}
+	
+	
+	private boolean isFull () {
+		return fsmCount == (width*depth);
+	}
+	
+	
+	private boolean addToFirstAvailableCell(FiniteStateMachine fsm) {
+		
+		int x = 0;
+		int y = 0;
+		int capacity = width*depth;
+		
+		for (int i = 1; i <= capacity;i++) {
+			if (machines[y][x] == null) {
+				machines[y][x] = fsm;
+				return true;
+			} else {
+				if (x < y && x < width) {
+					x++;
+				} else if(y >= x && y < depth) {
+					y++;
+				}
+			}
+		}
+		return false;
 	}
 
 	

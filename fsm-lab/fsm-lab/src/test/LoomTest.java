@@ -83,13 +83,27 @@ public class LoomTest {
 	}
 	
 	@Test
+	public void noFsm_inTopLeft_LoomTest () {
+		Loom lm = new Loom(10,10);
+		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
+		assertNull(fsmReturned);
+	}
+	
+	@Test
 	public void oneFsm_inTopLeft_LoomTest () {
 		Loom lm = new Loom(10,10);
 		FiniteStateMachine fsmA = new FiniteStateMachine();
 		lm.add(fsmA);
 		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
 		assertTrue(fsmA == fsmReturned);
-		
 	}
 	
+	@Test
+	public void oneFsm_inOneOne_LoomTest () {
+		Loom lm = new Loom(10,10);
+		FiniteStateMachine fsmA = new FiniteStateMachine();
+		lm.put(fsmA, 1, 1);
+		FiniteStateMachine fsmReturned = lm.getCellContents(1,1);
+		assertTrue(fsmA == fsmReturned);
+	}
 }
