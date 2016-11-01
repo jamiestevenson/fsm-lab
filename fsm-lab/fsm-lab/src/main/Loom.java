@@ -119,13 +119,12 @@ public class Loom {
 		int capacity = width*depth;
 		
 		for (int i = 1; i <= capacity;i++) {
-			if (machines[y][x] == null) {
-				machines[y][x] = fsm;
-				return true;
+			if (getCellContents(x, y) == null) {
+				return put(fsm, x, y);
 			} else {
-				if (x < y && x < width) {
+				if (x <= y && x < (width+1)) {
 					x++;
-				} else if(y >= x && y < depth) {
+				} else if(y >= x && y < (depth+1)) {
 					y++;
 				}
 			}

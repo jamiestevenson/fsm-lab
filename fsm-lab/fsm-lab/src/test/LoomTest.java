@@ -106,4 +106,34 @@ public class LoomTest {
 		FiniteStateMachine fsmReturned = lm.getCellContents(1,1);
 		assertTrue(fsmA == fsmReturned);
 	}
+	
+	@Test
+	public void autoAdd_oneIn_LoomTest () {
+		Loom lm = new Loom(10,10);
+		FiniteStateMachine fsmA = new FiniteStateMachine();
+		lm.add(fsmA);
+		FiniteStateMachine fsmB = new FiniteStateMachine();
+		lm.add(fsmB);
+		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
+		assertTrue(fsmA == fsmReturned);
+		fsmReturned = lm.getCellContents(1,0);
+		assertTrue(fsmB == fsmReturned);
+	}
+	
+	@Test
+	public void autoAdd_twoIn_LoomTest () {
+		Loom lm = new Loom(10,10);
+		FiniteStateMachine fsmA = new FiniteStateMachine();
+		lm.add(fsmA);
+		FiniteStateMachine fsmB = new FiniteStateMachine();
+		lm.add(fsmB);
+		FiniteStateMachine fsmC = new FiniteStateMachine();
+		lm.add(fsmB);
+		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
+		assertTrue(fsmA == fsmReturned);
+		fsmReturned = lm.getCellContents(1,0);
+		assertTrue(fsmB == fsmReturned);
+		fsmReturned = lm.getCellContents(0,1);
+		assertTrue(fsmC == fsmReturned);
+	}
 }
