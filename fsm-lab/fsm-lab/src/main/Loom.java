@@ -1,9 +1,7 @@
 package main;
 
 import java.awt.Dimension;
-import java.awt.HeadlessException;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Point;
 
 /**
  * @author Jamie Stevenson
@@ -15,12 +13,12 @@ import java.util.List;
 
 public class Loom {
 	
-	private final static int MIN_DIMENSION = 1;
+	private final static int MIN_DIMENSION = 2;
 	
 	private int width;
 	private int depth;
 	private int fsmCount;
-	// Addressed [depth][width]
+	// Addressed [width][depth], (x,y) from top left
 	private FiniteStateMachine[][] machines;
 	
 	public Loom () {
@@ -39,7 +37,7 @@ public class Loom {
 		this.width = validDimension(width);
 		this.depth = validDimension(depth);
 		this.fsmCount = 0;
-		machines = new FiniteStateMachine[depth][width];
+		machines = new FiniteStateMachine[this.width][this.depth];
 	}
 
 	
@@ -77,7 +75,7 @@ public class Loom {
 	 * @return - true if the FSM is added, otherwise false
 	 */
 	public boolean put (FiniteStateMachine fsm, int x, int y) {
-		machines[y][x] = fsm;
+		machines[x][y] = fsm;
 		fsmCount++;
 		return true;
 	}
@@ -92,7 +90,7 @@ public class Loom {
 	 * NB - some FSM configurations may use some form of null object
 	 */
 	public FiniteStateMachine getCellContents (int x, int y) {
-		return machines[y][x];
+		return machines[x][y];
 	}
 	
 	
@@ -103,7 +101,10 @@ public class Loom {
 	 * size for this Loom object.
 	 */
 	private int validDimension (int d) {
-		return d < MIN_DIMENSION ? MIN_DIMENSION : d;
+		if (d > MIN_DIMENSION) {
+			return d;
+		}
+		return MIN_DIMENSION;
 	}
 	
 	
@@ -115,22 +116,54 @@ public class Loom {
 	private boolean addToFirstAvailableCell(FiniteStateMachine fsm) {
 		
 		int x = 0;
-		int y = 0;
+		int y = 0; // change to point
 		int capacity = width*depth;
 		
 		for (int i = 1; i <= capacity;i++) {
 			if (getCellContents(x, y) == null) {
+				System.out.println("Added fsm to ("+x+","+y+")");
 				return put(fsm, x, y);
 			} else {
-				if (x <= y && x < (width+1)) {
-					x++;
-				} else if(y >= x && y < (depth+1)) {
-					y++;
-				}
+				Point p = advancePointer(x, y);
+				x = (int) p.getX();
+				y = (int) p.getY();
 			}
 		}
 		return false;
 	}
 
+	
+	// Naive diagonal traversal
+	private Point advancePointer(int x, int y) {
+		
+		if (inFirstRowOrLastColumn(x,y)) {
+			return wrapPointer(x, y);
+		} else {
+			return moveUpAndLeft(x, y);
+		}
+	}
+
+	private boolean inFirstRowOrLastColumn(int x, int y) {
+		return x == 0 || y == width-1;
+	}
+
+	private Point moveUpAndLeft (int x, int y) {
+		return new Point(x+1, y-1);
+		
+	}
+
+	private Point wrapPointer(int x, int y) {
+		if(x == 0 && y == width-1) { // top left corner
+			return new Point(x+1, depth-1);
+		} else if (x == 0) { //other top row
+			return new Point(y+1, 0);
+		} else { // last column
+			return new Point(x+1, depth-1);
+		}
+	}
+
+	private boolean isOnGrid (int x, int y) {
+		return x>=0 && x<width && y>=0 && y<depth;
+	}
 	
 }

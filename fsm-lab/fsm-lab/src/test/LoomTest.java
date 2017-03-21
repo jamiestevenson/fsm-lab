@@ -46,8 +46,8 @@ public class LoomTest {
 		Loom lm = new Loom(0,0);
 		Dimension d = lm.dimension();
 		assertNotNull(d);
-		assertTrue(1 == d.getHeight());
-		assertTrue(1 == d.getWidth());
+		assertTrue(2 == d.getHeight());
+		assertTrue(2 == d.getWidth());
 	}
 	
 	@Test
@@ -69,6 +69,8 @@ public class LoomTest {
 		Loom lm = new Loom(1,1);
 		FiniteStateMachine fsmA = new FiniteStateMachine();
 		FiniteStateMachine fsmB = new FiniteStateMachine();
+		lm.add(fsmA);
+		lm.add(fsmA);
 		lm.add(fsmA);
 		assertFalse(lm.add(fsmB));
 	}
@@ -116,7 +118,7 @@ public class LoomTest {
 		lm.add(fsmB);
 		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
 		assertTrue(fsmA == fsmReturned);
-		fsmReturned = lm.getCellContents(1,0);
+		fsmReturned = lm.getCellContents(0,1);
 		assertTrue(fsmB == fsmReturned);
 	}
 	
@@ -131,9 +133,9 @@ public class LoomTest {
 		lm.add(fsmB);
 		FiniteStateMachine fsmReturned = lm.getCellContents(0,0);
 		assertTrue(fsmA == fsmReturned);
-		fsmReturned = lm.getCellContents(1,0);
-		assertTrue(fsmB == fsmReturned);
 		fsmReturned = lm.getCellContents(0,1);
+		assertTrue(fsmB == fsmReturned);
+		fsmReturned = lm.getCellContents(1,0);
 		assertTrue(fsmC == fsmReturned);
 	}
 }
