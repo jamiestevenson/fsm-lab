@@ -10,27 +10,19 @@ package main;
 public class FiniteStateMachine implements FSM {
 	private boolean state;
 
-	// Default Constructor
 	public FiniteStateMachine () {
 		state = false;
 	}
 	
-	/* (non-Javadoc)
-	 * @see main.FSM#tick()
-	 */
 	@Override
 	public boolean tick () {
 		state = !state;
 		return true;
 	}
 	
-	
-	/* (non-Javadoc)
-	 * @see main.FSM#state()
-	 */
 	@Override
 	public String state () {
-		return state ? "ON" : "OFF";
+		return state ? "ALIVE" : "DEAD";
 	}
 	
 }

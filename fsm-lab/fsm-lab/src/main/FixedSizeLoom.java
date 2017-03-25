@@ -7,7 +7,7 @@ import java.awt.Point;
  * @author Jamie Stevenson
  * 
  * This class provides wrapper facilities for a simulation comprising one or more
- * Finite State Machines.  This includes adding and removing FSMs, managing neighborhood and
+ * Finite State Machines.  This includes adding and removing FSMs, managing neighbourhood and
  * applying time progression.
  */
 
@@ -40,19 +40,11 @@ public class FixedSizeLoom implements Loom {
 		machines = new FSM[this.width][this.depth];
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see main.Loom#dimension()
-	 */
 	@Override
 	public Dimension dimension () {
 		return new Dimension(width, depth);
 	}
 	
-	
-	/* (non-Javadoc)
-	 * @see main.Loom#add(main.FiniteStateMachine)
-	 */
 	@Override
 	public boolean add (FSM fsm) {
 		if(fsm == null || isFull()){
@@ -61,10 +53,6 @@ public class FixedSizeLoom implements Loom {
 		return addToFirstAvailableCell(fsm);
 	}
 	
-
-	/* (non-Javadoc)
-	 * @see main.Loom#put(main.FiniteStateMachine, int, int)
-	 */
 	@Override
 	public boolean put (FSM fsm, int x, int y) {
 		machines[x][y] = fsm;
@@ -72,15 +60,10 @@ public class FixedSizeLoom implements Loom {
 		return true;
 	}
 	
-	
-	/* (non-Javadoc)
-	 * @see main.Loom#getCellContents(int, int)
-	 */
 	@Override
 	public FSM getCellContents (int x, int y) {
 		return machines[x][y];
 	}
-	
 	
 	/**
 	 * Returns a valid Dimension that can be the size of this Loom
