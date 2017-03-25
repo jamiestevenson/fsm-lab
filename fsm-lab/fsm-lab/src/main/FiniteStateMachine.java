@@ -7,7 +7,7 @@ package main;
  * life.
  */
 
-public class FiniteStateMachine {
+public class FiniteStateMachine implements FSM {
 	private boolean state;
 
 	// Default Constructor
@@ -15,17 +15,20 @@ public class FiniteStateMachine {
 		state = false;
 	}
 	
-	/**
-	 * Processes a time tick for this FSM
-	 * @return true if tick was carried out with no problems,
-	 * 				otherwise false
+	/* (non-Javadoc)
+	 * @see main.FSM#tick()
 	 */
+	@Override
 	public boolean tick () {
 		state = !state;
 		return true;
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see main.FSM#state()
+	 */
+	@Override
 	public String state () {
 		return state ? "ON" : "OFF";
 	}
