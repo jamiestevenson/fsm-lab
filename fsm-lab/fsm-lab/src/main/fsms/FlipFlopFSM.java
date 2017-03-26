@@ -1,4 +1,6 @@
-package main;
+package main.fsms;
+
+import main.model.FSM;
 
 /**
  * @author Jamie Stevenson
@@ -7,10 +9,10 @@ package main;
  * life.
  */
 
-public class FiniteStateMachine implements FSM {
+public class FlipFlopFSM implements FSM {
 	private boolean state;
 
-	public FiniteStateMachine () {
+	public FlipFlopFSM () {
 		state = false;
 	}
 	
@@ -22,7 +24,7 @@ public class FiniteStateMachine implements FSM {
 	
 	@Override
 	public String state () {
-		return state ? "ALIVE" : "DEAD";
+		return state ? "ON" : "OFF";
 	}
 	
 }

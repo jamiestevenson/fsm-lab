@@ -1,4 +1,4 @@
-package main;
+package main.model;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -92,7 +92,6 @@ public class FixedSizeLoom implements Loom {
 		
 		for (int i = 1; i <= capacity;i++) {
 			if (getCellContents(x, y) == null) {
-				System.out.println("Added fsm to ("+x+","+y+")");
 				return put(fsm, x, y);
 			} else {
 				Point p = advancePointer(x, y);

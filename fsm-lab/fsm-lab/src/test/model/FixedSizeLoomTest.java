@@ -1,12 +1,12 @@
-package test;
+package test.model;
 
 import static org.junit.Assert.*;
 
 import java.awt.Dimension;
 import java.awt.Point;
 
-import main.FSM;
-import main.FixedSizeLoom;
+import main.model.FSM;
+import main.model.FixedSizeLoom;
 
 import org.junit.Test;
 
