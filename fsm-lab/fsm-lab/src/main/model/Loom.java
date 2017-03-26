@@ -40,4 +40,13 @@ public interface Loom {
 	 */
 	public abstract FSM getCellContents(int x, int y);
 
+	/**
+	 * Executes one 'tick' of the simulation on all FSMs on the loom. Makes no guarantees about
+	 * ordering or edge-of-grid behaviour.
+	 * 
+	 * @return boolean - true if all FSMs in the loom are asked to tick and all FSMs ticked FSMs
+	 *                   report back a successful tick, otherwise false.
+	 */
+	public abstract boolean tick();
+
 }

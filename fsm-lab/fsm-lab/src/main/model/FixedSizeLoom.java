@@ -2,6 +2,7 @@ package main.model;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Arrays;
 
 /**
  * @author Jamie Stevenson
@@ -141,6 +142,15 @@ public class FixedSizeLoom implements Loom {
 
 	private boolean isOnGrid (int x, int y) {
 		return x>=0 && x<width && y>=0 && y<depth;
+	}
+
+	@Override
+	public boolean tick() {
+		Arrays.stream(machines).
+			flatMap(s -> Arrays.stream(s)).
+			filter(f -> null!=f).
+			forEach(f -> System.out.println(f.state()));
+		return false;
 	}
 	
 }
